@@ -509,81 +509,16 @@ function getCurrentDate() {
 }
 
 
-// ... (previous JavaScript code)
-
 // Function to upload a new blog post
 function uploadBlog(event) {
-  event.preventDefault();
+    event.preventDefault();
 
-  const blogTitle = document.getElementById('blogTitle').value;
-  const blogAuthor = document.getElementById('blogAuthor').value;
-  const blogContent = document.getElementById('blogContent').value;
+    const blogTitle = document.getElementById('blogTitle').value;
+    const blogAuthor = document.getElementById('blogAuthor').value;
+    const blogContent = document.getElementById('blogContent').value;
 
-  // Get the current date
-  const currentDate = getCurrentDate();
-
-  // Create a new blog object
-  const newBlog = { title: blogTitle, author: blogAuthor, content: blogContent, date: currentDate };
-
-  // Send the blog data to the server
-  fetch('http://localhost:3000/api/upload-blog', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(newBlog),
-  })
-    .then(response => response.json())
-    .then(data => {
-      if (data.success) {
-        // Clear the form
-        document.getElementById('blogTitle').value = '';
-        document.getElementById('blogAuthor').value = '';
-        document.getElementById('blogContent').value = '';
-
-        // Fetch and display the updated list of blogs
-        fetchBlogs();
-      }
-    })
-    .catch(error => {
-      console.error('Error uploading blog:', error);
-    });
-}
-
-// Function to fetch and display blogs from the server
-function fetchBlogs() {
-  fetch('http://localhost:3000/api/get-blogs')
-    .then(response => response.json())
-    .then(data => {
-      // Update the display with the fetched blogs
-      updateBlogDisplay(data);
-    })
-    .catch(error => {
-      console.error('Error fetching blogs:', error);
-    });
-}
-
-// Function to update the display with fetched blogs
-function updateBlogDisplay(blogs) {
-  const mainSection = document.getElementById('blogs');
-  mainSection.innerHTML = ''; // Clear existing content
-
-  blogs.forEach(blog => {
-    const newArticle = document.createElement('article');
-    newArticle.innerHTML = `
-      <h2>${blog.title}</h2>
-      <p>Author: ${blog.author}</p>
-      <p>Date: ${blog.date}</p>
-      <p>${blog.content}</p>
-      <!-- ... (interaction-section and like/comment functionality) -->
-    `;
-
-    mainSection.appendChild(newArticle);
-  });
-}
-
-// ... (remaining JavaScript code)
-
+    // Get the current date
+    const currentDate = getCurrentDate();
 
     // Create a new article element
     const newArticle = document.createElement('article');
@@ -619,7 +554,7 @@ function updateBlogDisplay(blogs) {
 
     // Hide the form
     toggleBlogForm();
-
+}
 
 // Function to get the current date in a formatted way
 function getCurrentDate() {
