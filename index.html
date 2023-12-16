@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Cool Blog</title>
+    
+</head>
+
+<style>
+    body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #ffffff;
+    transition: background-color 0.5s ease;
+    background-size: cover; /* Ensure the background image covers the entire body */
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+#mainBody {
+    background: url('default-background.jpg') center/cover fixed no-repeat; /* Default background image */
+}
+
+header {
+    background-color: #446abb;
+    padding: 20px;
+    text-align: center;
+    color: white;
+    z-index: 1000;
+}
+
+main {
+    max-width: 800px;
+    margin: 20px auto;
+}
+
+/* ... (previous styles) */
+
+
+article {
+    margin-bottom: 30px;
+    padding: 20px;
+    border-radius: 10px;
+    transition: background-color 0.5s ease;
+    position: relative; /* Add position relative for the background */
+}
+
+/* Add a background pattern for light mode */
+article::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('tile-pattern.jpg'); /* Replace with your tile image path */
+    opacity: 0.3; /* Adjust the opacity as needed */
+    pointer-events: none; /* Allow clicks to pass through the background */
+}
+
+.interaction-section {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+
+/* Button to Toggle Blog Form */
+button {
+    background-color: #3498db;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #2980b9;
+}
+
+/* New Blog Post Form */
+#blogForm {
+    background-color: #585e635e;
+    border: 1px solid #dddddd00;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+    color: #ffffff;
+}
+
+form {
+    display: grid;
+    gap: 10px;
+}
+
+label {
+    font-weight: bold;
+}
+
+input,
+textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #504d4d54;
+    border-radius: 5px;
+    margin-top: 5px;
+}
+
+button[type="submit"] {
+    background-color: #2ecc71;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover {
+    background-color: #27ae60;
+}
+
+footer {
+    background-color: #33333369;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+/* ... (previous styles) */
+
+/* Dark Mode */
+.dark-mode {
+    background-color: #333;
+    color: white;
+}
+
+/* Toggle Button Style */
+.switch {
+    display: inline-block;
+    position: relative;
+    width: 60px;
+    height: 34px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #2196F3;
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+/* Transparent Header in Dark Mode */
+.dark-mode header {
+    background-color: #446abb;
+}
+
+/* Adjustments for Dark Mode */
+.dark-mode main {
+    background-color: #33333352;
+    color: #fff;
+}
+
+.dark-mode article {
+    background-color: rgba(27, 66, 114, 0.4);
+}
+
+/* ... (previous styles) */
+
+main {
+    max-width: 800px;
+    margin: 20px auto;
+}
+
+article {
+    margin-bottom: 30px;
+    padding: 20px;
+    border-radius: 10px;
+    transition: background-color 0.5s ease;
+    position: relative;
+}
+
+.interaction-section {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.like-btn {
+    background-color: #3498db;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.like-btn:hover {
+    background-color: #2980b9;
+}
+
+.like-count {
+    font-weight: bold;
+}
+
+.comment-section {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+}
+
+.comment-section input {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.comment-section button {
+    background-color: #2ecc71;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.comment-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.comment-list li {
+    margin-bottom: 5px;
+}
+
+/* ... (remaining styles) */
+
+/* ... (previous styles) */
+
+
+</style>
+
+<body id="mainBody">
+    <header>
+        <h1>My Cool Blog</h1>
+        <label class="switch">
+            <input type="checkbox" id="darkModeToggle">
+            <span class="slider"></span>
+        </label>
+    </header>
+
+    <footer>
+        <p>&copy; 2023 My Cool Blog</p>
+    </footer>
+
+    
+
+<!-- ... (previous HTML code) -->
+
+ <main>
+            <!-- New Blog Post Form -->
+            <div id="blogForm">
+                <h2>Create a New Blog Post</h2>
+                <form onsubmit="uploadBlog(event)">
+                    <label for="blogTitle">Title:</label>
+                    <input type="text" id="blogTitle" required>
+    
+                    <label for="blogAuthor">Author:</label>
+                    <input type="text" id="blogAuthor" required>
+    
+                    <label for="blogContent">Content:</label>
+                    <textarea id="blogContent" required></textarea>
+    
+                    <button type="submit">Post</button>
+                </form>
+            </div>
+    
+            <!-- Displayed Blogs -->
+            <div id="blogs"></div>
+
+    <button onclick="toggleBlogForm()">Create a New Blog Post</button>
+
+    <!-- New Blog Post Form -->
+    <div id="blogForm" style="display: none;">
+        <h2>Create a New Blog Post</h2>
+        <form onsubmit="submitBlog(event)">
+            <label for="blogTitle">Title:</label>
+            <input type="text" id="blogTitle" required>
+
+            <label for="blogAuthor">Author:</label>
+            <input type="text" id="blogAuthor" required>
+
+            <label for="blogContent">Content:</label>
+            <textarea id="blogContent" required></textarea>
+
+            <button type="submit">Post</button>
+        </form>
+    </div>
+
+    <!-- ... (additional blog articles) -->
+ </main>
+ <footer>
+    <!-- ... (footer content) -->
+</footer>
+
+
+
+
+    <script>
+
+document.getElementById('darkModeToggle').addEventListener('change', () => {
+    document.body.classList.toggle('dark-mode', document.getElementById('darkModeToggle').checked);
+});
+// Function to toggle likes
+function toggleLike(postId) {
+    const likeCountElement = document.getElementById(`likeCount_${postId}`);
+    const currentLikes = parseInt(likeCountElement.innerText, 10);
+
+    if (likeCountElement.classList.contains('liked')) {
+        likeCountElement.classList.remove('liked');
+        likeCountElement.innerText = `${currentLikes - 1} likes`;
+    } else {
+        likeCountElement.classList.add('liked');
+        likeCountElement.innerText = `${currentLikes + 1} likes`;
+    }
+}
+
+// Function to add comments
+function addComment(postId) {
+    const commentInput = document.getElementById(`commentInput_${postId}`);
+    const commentList = document.getElementById(`commentList_${postId}`);
+
+    const commentText = commentInput.value.trim();
+    if (commentText !== '') {
+        const commentItem = document.createElement('li');
+        commentItem.innerText = commentText;
+        commentList.appendChild(commentItem);
+        commentInput.value = '';
+    }
+}
+// ... (previous JavaScript code)
+
+// Function to change the background dynamically
+function changeBackground(imageUrl) {
+    const mainBody = document.getElementById('mainBody');
+    mainBody.style.backgroundImage = `url('${imageUrl}')`;
+}
+
+// Example usage: changeBackground('new-background.jpg');
+
+// ... (remaining JavaScript code)
+window.onload = function() {
+    changeBackground('tile-pattern.jpg');
+};
+// ... (previous JavaScript code)
+
+// Function to change the background dynamically
+function changeBackground(imageUrl, darkMode = false) {
+    const mainBody = document.getElementById('mainBody');
+    mainBody.style.backgroundImage = `url('${imageUrl}')`;
+
+    // Adjust styles for dark mode
+    if (darkMode) {
+        mainBody.style.backgroundColor = '#333'; // Set a dark background color in addition to the image
+    } else {
+        mainBody.style.backgroundColor = 'transparent'; // Set a transparent background color for light mode
+    }
+}
+
+// Example usage:
+// For light mode: changeBackground('light-background.jpg');
+// For dark mode: changeBackground('dark-background.jpg', true);
+
+// ... (remaining JavaScript code)
+// ... (previous JavaScript code)
+
+// Function to toggle visibility of the blog creation form
+function toggleBlogForm() {
+    const blogForm = document.getElementById('blogForm');
+    blogForm.style.display = blogForm.style.display === 'none' ? 'block' : 'none';
+}
+
+// Function to submit a new blog post
+function submitBlog(event) {
+    event.preventDefault();
+
+    const blogTitle = document.getElementById('blogTitle').value;
+    const blogAuthor = document.getElementById('blogAuthor').value;
+    const blogContent = document.getElementById('blogContent').value;
+
+    // Create a new article element
+    const newArticle = document.createElement('article');
+    newArticle.innerHTML = `
+        <h2>${blogTitle}</h2>
+        <p>Author: ${blogAuthor}</p>
+        <p>Date: ${getCurrentDate()}</p>
+        <p>${blogContent}</p>
+        <div class="interaction-section">
+            <div class="like-section">
+                <button class="like-btn" onclick="toggleLike('blogPost1')">Like</button>
+                <span class="like-count" id="likeCount_blogPost1">0 likes</span>
+            </div>
+            <div class="comment-section">
+                <input type="text" placeholder="Add a comment..." id="commentInput_blogPost1">
+                <button onclick="addComment('blogPost1')">Comment</button>
+                <ul class="comment-list" id="commentList_blogPost1"></ul>
+            </div>
+        </div>
+    `;
+
+    // Append the new article to the main section
+    const mainSection = document.querySelector('main');
+    mainSection.appendChild(newArticle);
+
+    // Clear the form
+    document.getElementById('blogTitle').value = '';
+    document.getElementById('blogAuthor').value = '';
+    document.getElementById('blogContent').value = '';
+
+    // Hide the form
+    toggleBlogForm();
+}
+
+// Function to get the current date in a formatted way
+function getCurrentDate() {
+    const currentDate = new Date();
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return currentDate.toLocaleDateString(undefined, options);
+}
+
+// ... (remaining JavaScript code)
+// ... (previous JavaScript code)
+
+// ... (previous JavaScript code)
+
+// ... (previous JavaScript code)
+
+// Function to upload a new blog post
+function uploadBlog(event) {
+    event.preventDefault();
+
+    const blogTitle = document.getElementById('blogTitle').value;
+    const blogAuthor = document.getElementById('blogAuthor').value;
+    const blogContent = document.getElementById('blogContent').value;
+
+    // Get the current date
+    const currentDate = getCurrentDate();
+
+    // Create a new article element
+    const newArticle = document.createElement('article');
+    newArticle.innerHTML = `
+        <h2>${blogTitle}</h2>
+        <p>Author: ${blogAuthor}</p>
+        <p>Date: ${currentDate}</p>
+        <p>${blogContent}</p>
+        <div class="interaction-section">
+            <div class="like-section">
+                <button class="like-btn" onclick="toggleLike('${blogTitle}')">Like</button>
+                <span class="like-count" id="likeCount_${blogTitle}">0 likes</span>
+            </div>
+            <div class="comment-section">
+                <input type="text" placeholder="Add a comment..." id="commentInput_${blogTitle}">
+                <button onclick="addComment('${blogTitle}')">Comment</button>
+                <ul class="comment-list" id="commentList_${blogTitle}"></ul>
+            </div>
+        </div>
+    `;
+
+    // Append the new article to the main section
+    const mainSection = document.getElementById('blogs');
+    mainSection.appendChild(newArticle);
+
+    // Clear the form
+    document.getElementById('blogTitle').value = '';
+    document.getElementById('blogAuthor').value = '';
+    document.getElementById('blogContent').value = '';
+
+
+// ... (remaining JavaScript code)
+
+    // Hide the form
+    toggleBlogForm();
+}
+
+// Function to get the current date in a formatted way
+function getCurrentDate() {
+    const currentDate = new Date();
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return currentDate.toLocaleDateString(undefined, options);
+}
+
+// ... (remaining JavaScript code)
+
+    </script>
+</body>
+
+</html>
